@@ -43,11 +43,12 @@ class MeasureWorker(QThread):
         except Exception as e:
             self.error_signal.emit(f"Mất kết nối: {str(e)}")
 
+# --- LOGIC SO SÁNH ---
     def evaluate(self, val, s_min, s_center, s_max, q_val, q_limit):
         if val < s_min or val > s_max or q_val < q_limit:
             return "FAIL", QColor(244, 67, 54)
         warn_zone = (s_max - s_min) * 0.15
-        if (val <= s_min + warn_zone) or (val >= s_max - warning_zone):
+        if (val <= s_min + warn_zone) or (val >= s_max - warn_zone):
             return "WARNING", QColor(255, 235, 59)
         return "PASS", QColor(76, 175, 80)
 
