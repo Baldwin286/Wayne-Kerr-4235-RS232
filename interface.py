@@ -57,7 +57,7 @@ class LCRControlApp(QWidget):
         self.combo_ports.clear()
         ports = serial.tools.list_ports.comports()
         for port in ports:
-            self.combo_ports.addItem(port.device) # port.device là tên như COM1, COM2...
+            self.combo_ports.addItem(port.device) # port.device
         
         if self.combo_ports.count() == 0:
             self.log_output.append("Không tìm thấy cổng COM nào.")
@@ -94,7 +94,6 @@ class LCRControlApp(QWidget):
     def send_command(self, cmd):
         if self.ser and self.ser.is_open:
             try:
-                # Luôn kết thúc bằng \n (LF) cho RS232 [cite: 1832]
                 self.ser.write(f"{cmd}\n".encode('ascii'))
                 self.log_output.append(f"Gửi: {cmd}")
                 

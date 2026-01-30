@@ -5,7 +5,7 @@ import time
 # Pinout: RxD (2), TxD (3), GND (5), RTS (7), CTS (8) [cite: 181]
 try:
     ser = serial.Serial(
-        port='COM7',        # Thay đổi số cổng COM cho đúng với máy tính của bạn
+        port='COM8',        # Thay đổi số cổng COM cho đúng với máy tính của bạn
         baudrate=9600,      # Tốc độ cố định của máy 4300 [cite: 1821-1822]
         bytesize=serial.EIGHTBITS, # 8 bits dữ liệu [cite: 1823]
         parity=serial.PARITY_NONE, # Không có parity [cite: 1826-1827]

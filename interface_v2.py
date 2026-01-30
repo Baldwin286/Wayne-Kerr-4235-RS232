@@ -39,7 +39,7 @@ class LCRApp(QWidget):
         self.RY_SPECS = (144, 160, 176)
         self.RZ_SPECS = (189, 210, 231)
 
-        # Ngưỡng phát hiện (Lọc rác): Chỉ nhận diện khi L > 1mH hoặc R < 500 Ohm
+        # Ngưỡng phát hiện (Lọc): Chỉ nhận diện khi L > 1mH hoặc R < 500 Ohm
         self.L_DETECT_GATE = 1.0e-3 
         self.R_DETECT_GATE = 500.0
 
@@ -153,7 +153,6 @@ class LCRApp(QWidget):
             for pair_idx in [1, 3, 5]: 
                 self.lbl_status.setText(f"LK {self.current_row+1}: Chờ kẹp vị trí {self.headers[pair_idx]}...")
                 
-                # Biến hỗ trợ lọc ổn định
                 stable_count = 0
                 last_l = 0
                 
@@ -169,7 +168,6 @@ class LCRApp(QWidget):
                             curr_q = float(parts[1])
 
                             # Đổi đơn vị sang kH để so sánh (Specs của bạn là kH)
-                            # Giả sử máy trả về Henry, ta nhân 1000 để ra mH/kH tùy thang đo bạn setup
                             l_kh = curr_l * 1000 
 
                             # 1. KIỂM TRA GIÁ TRỊ CÓ NẰM TRONG VÙNG ĐO THẬT KHÔNG
@@ -182,7 +180,6 @@ class LCRApp(QWidget):
                                 
                                 last_l = l_kh
                                 
-                                # 3. CHỈ CHỐT KHI ỔN ĐỊNH 3 LẦN LIÊN TIẾP
                                 if stable_count >= 3:
                                     item_l = QTableWidgetItem(f"{l_kh:.3f}")
                                     item_q = QTableWidgetItem(f"{curr_q:.2f}")
@@ -202,7 +199,7 @@ class LCRApp(QWidget):
                         except: pass
                     QApplication.processEvents()
 
-                # ĐOẠN CHỜ RÚT KIM (Giữ nguyên như cũ)
+                # CHỜ RÚT KIM 
                 self.lbl_status.setText(f"LK {self.current_row+1}: OK! HÃY RÚT KIM...")
                 while True:
                     self.ser.write(b":MEAS:TRIGger\n")
